@@ -13,7 +13,7 @@ var follower_list_followed = [];//Ceci garde la liste général des followers pa
 
 var tab_verif_connected = [];//Ce tableau verifi les followed qui son connectés
 
-var io = require('socket.io').listen(8089,{ log: false }) ;
+var io = require('socket.io').listen(8080,{ log: false }) ;
 
 console.log('kwiki Ready');
 

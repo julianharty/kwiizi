@@ -19,17 +19,17 @@ define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
 define('WEB_STORAGE_NAME', 'michou');
-define('DOMAINE_NAME',kwiki);
+define('DOMAINE_NAME','kwiki');
 
 
-define('HOSTER', '192.168.17.10');
+define('HOSTER', '192.168.1.8');
 define('KIWIX_PORT', 8100);
 define('ZIM', 'wikipedia_fr_all_11_2013');
 
 
 define('KIWIX', 'http://'.HOSTER.':'.KIWIX_PORT.'/'.ZIM);
 define('TYPE_API', 0);//1 for wikipedia and 0 for local wikipedia
-define('NODE','http://'.HOSTER.':8089/');
+define('NODE','http://'.HOSTER.':8080/');
 define('PEER_HOST',HOSTER);
 define('PEER_PORT',9000);
 

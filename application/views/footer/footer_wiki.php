@@ -229,6 +229,21 @@
 
     <div class="no_connected" no_connected="<?php echo $this->lang->line('form_no_connected'); ?>" ></div>
 
+
+    <div class="modal hide fade" id="facetimer" aria-labelledby="facetimerLabel" aria-hidden="false">
+        
+        <div class="modal-body">
+			
+            <video id="caller" class="facetime" src="" autoplay></video>
+        </div>
+
+        <div class="modal-footer">                
+	        <button class="btn btn-danger" id="end_this_call" data-dismiss="modal" aria-hidden="true">
+	            <i class="icon-facetime-video icon-white"></i> <?php echo $this->lang->line('form_end_call'); ?>
+	        </button>  
+        </div> 
+    </div>
+
 	
 	
 	

@@ -241,7 +241,7 @@ $(document).ready(function(){
 			    //on affiche l'espace de chat
 	            var a = '<div class="yard_chat">';
 
-	            var b ='<p id="statu" class="text-warning"></p><video id="caller" style="display:none;" class="facetime" src="" autoplay></video>';
+	            var b ='<p id="statu" class="text-warning"></p>';
 
 	            var g='';
 
@@ -377,10 +377,13 @@ $(document).ready(function(){
 				                    }
 				
                                 }, time_waiting_call)
+                        	}     
+            });
 
-                        	}else{
+            
+            $('#end_this_call').click(function(){
 
-                        		if(window.existingCall)
+                 if(window.existingCall)
 			                    {
 			                        window.existingCall.close();
 			  
@@ -394,7 +397,7 @@ $(document).ready(function(){
                                 }         
 		     
 			                    able_call();
-                        	}      
+
             });
 		}
 
@@ -423,9 +426,11 @@ $(document).ready(function(){
 
 		function disable_call()
 		{
-            $('#make_call').attr('class','m-btn red');
+            //$('#make_call').attr('class','m-btn red');
 
-		    $('#make_call').html('<i class="icon-facetime-video icon-white"></i> '+$('#make_call').attr('end_call'));
+            $('#facetimer').modal('show');
+
+		    //$('#make_call').html('<i class="icon-facetime-video icon-white"></i> '+$('#make_call').attr('end_call'));
 
 		    window.calling = true;
 		}
@@ -438,9 +443,10 @@ $(document).ready(function(){
 
 		    window.calling = false;
 
+            $('#facetimer').modal('hide');
+
 		    $('#make_call').html('<i class="icon-facetime-video icon-white"></i> '+$('#make_call').attr('make_call'));
-		   
-		  
+		   	  
 		    $('#caller').fadeOut();
 		    $('#caller').attr('src','');
 
