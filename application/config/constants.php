@@ -22,7 +22,7 @@ define('WEB_STORAGE_NAME', 'michou');
 define('DOMAINE_NAME','kwiki');
 
 
-define('HOSTER', '192.168.1.8');
+define('HOSTER', 'localhost');
 define('KIWIX_PORT', 8100);
 define('ZIM', 'wikipedia_fr_all_11_2013');
 
