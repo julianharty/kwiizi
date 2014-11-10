@@ -35,6 +35,7 @@ CACHE MANIFEST
 ../assets/js/wiki_contact.js
 ../assets/js/last_notes.js
 ../assets/js/jquery.classynotty.js
+../assets/js/jquery.scrollToTop.min.js
 ../assets/node/node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js
 ../assets/node/api/easyrtc.js
 ../assets/js/app_socket.js
