@@ -51,54 +51,20 @@ cd /var/www/kiwix-serve
 </code>
 Beware: wikipedia.zim.idx and wikipedia.zim are exemple name of yours file.Remplace it with the right name of these files that you get.
 
-- Now on va faire aussi demarrer le serveur NodeJS au démarrage.Pour cela créez un script de démarrage avec les étapes suivantes:
-<code>
+- Now we are going to start the nodeJs server at the startup.Create a start up script w:
+
    First cd into /etc/init.d/ and create a new file called node-server.sh
+   <code>
    $ cd /etc/init.d
    $ sudo nano node-server.sh
+   </code>
 
-   Next copy the following into it:
+   Next copy the content of the file /node-server.sh/node-server.sh located in the repository to your new file:
    Note to change the path_to_node_app variable to wherever your app lives.
 
-   #! /bin/sh
-# /etc/init.d/node-server
- 
-### BEGIN INIT INFO
-# Provides:          node-server
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-### END INIT INFO
- 
-# I suppoz that www is your server root # 
-path_to_node_app=/var/www/assets/node/server.js 
- 
-# Carry out specific functions when asked to by the system
-case "$1" in
-  start)
-    echo "* starting node-server * "
-    echo "* starting node-server * [`date`]" >> /var/log/node-server.log
-    /usr/local/bin/node $path_to_node_app >> /var/log/node-server.log 2>&1&
-    ;;
-  stop)
-    echo "* stopping node-server * "
-    echo "* stopping node-server * [`date`]" >> /var/log/node-server.log
-    killall /usr/local/bin/node
-    ;;
-  *)
-    echo "Usage: /etc/init.d/node-server {start|stop}"
-    exit 1
-    ;;
-esac
- 
-exit 0
-</code>
-
-
 Next we need to make this file executable via :
-<code>
 
+<code>
 $ chmod 755 ./node-server.sh
 </code>
 Now let’s tell the PI to execute this script and start the server on reboot:
