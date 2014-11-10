@@ -34,20 +34,25 @@ Now install the application
 - Create a database with a name of your choice and install the tables my_database.sql file located in the directory /use_this_database at the root of your server.
 - Enter the name of your database and all information relating to his connection in the application/config/database.php file
   Be sure you have filled database informations corresponding to your server in the following line on this file;
+<code>
   $db['default']['hostname'] = 'localhost';
   $db['default']['username'] = 'root';
   $db['default']['password'] = '';
   $db['default']['database'] = 'kwiki';
+</code>
   
 - Now download the zim file of wikipedia of your choice at: http://download.kiwix.org/zim/wikipedia/;
 - Put it in a directory of your choice in your serveur.Be sure that the zim file have been indexed before.Follow the step index your zim file on this page http://www.kiwix.org/wiki/Kiwix-index.
   This file indexing can take SEVERAL hours , sometimes even several days.
 - Assuming you have your zim file with its index file, now we create a script at startup that will automatically start the database wikipedia when your server starts.For this, create a startup script under linux with the following line:
+<code>
 cd /var/www/kiwix-serve
 ./kiwix-server --port=8100 --daemon --index=/path_to_your_indexed_file/wikipedia.zim.idx /path_to_your_zim_file/wikipedia.zim
+</code>
 Beware: wikipedia.zim.idx and wikipedia.zim are exemple name of yours file.Remplace it with the right name of these files that you get.
 
 - Now on va faire aussi demarrer le serveur NodeJS au démarrage.Pour cela créez un script de démarrage avec les étapes suivantes:
+<code>
    First cd into /etc/init.d/ and create a new file called node-server.sh
    $ cd /etc/init.d
    $ sudo nano node-server.sh
@@ -88,14 +93,19 @@ case "$1" in
 esac
  
 exit 0
+</code>
 
 
 Next we need to make this file executable via :
+<code>
 
 $ chmod 755 ./node-server.sh
+</code>
 Now let’s tell the PI to execute this script and start the server on reboot:
 
+<code>
 $ update-rc.d node-server.sh defaults
+</code>
 
 Now it's finally over.You can now connect you via same network to your new server browser by typing the IP address of your server as url on your browser.
 
