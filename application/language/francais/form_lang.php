@@ -102,6 +102,9 @@ $lang['form_download_img']      = "Télécharger l'image.";
 $lang['form_not_allow_family']  = "Désolé...vous n'êtes pas permis d'utiliser cette option.";
 $lang['form_not_news']          = "Aucune nouvelles notifications.";
 $lang['form_no_connected']      = "Aucun utilisateur en ligne.";
+$lang['form_wikipedia']         = "Wikipedia";
+$lang['form_library']           = "Librairie";
+$lang['form_videotek']          = "Vidéo";
 
 
 

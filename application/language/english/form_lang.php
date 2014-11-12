@@ -100,6 +100,9 @@ $lang['form_download_img']      = "Download the image.";
 $lang['form_not_allow_family']  = "Sorry...You are not allow to use this function.";
 $lang['form_not_news']          = "Not notification.";
 $lang['form_no_connected']      = "No user online.";
+$lang['form_wikipedia']         = "Wikipedia";
+$lang['form_library']           = "Library";
+$lang['form_videotek']          = "Video";
 
 
 

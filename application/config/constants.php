@@ -26,8 +26,13 @@ define('HOSTER', 'localhost');
 define('KIWIX_PORT', 8100);
 define('ZIM', 'wikipedia_fr_all_11_2013');
 
+//List of all zim file
+define('ZIM_LIST','wikipedia_fr_all_11_2013,gutenberg_fr_all_10_2014,ted_business_05_2014,ted_entertainment_05_2014');
+
 
 define('KIWIX', 'http://'.HOSTER.':'.KIWIX_PORT.'/'.ZIM);
+define('HOST_WIKI', 'http://'.HOSTER.':'.KIWIX_PORT);
+define('HOST', 'http://'.HOSTER);
 define('TYPE_API', 0);//1 for wikipedia and 0 for local wikipedia
 define('NODE','http://'.HOSTER.':8080/');
 define('PEER_HOST',HOSTER);

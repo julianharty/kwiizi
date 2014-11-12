@@ -6,6 +6,10 @@ $(document).ready(function(){
 	var port_kiwix = $('.hoster').attr('port_kiwix');
 	var zim = $('.hoster').attr('zim');
 
+	var all_zim_file = [];
+	all_zim_file = $('.hoster').attr('zim_list').split(',');
+	window.all_zim_file = all_zim_file;
+
  
   $(function(){$('.bulle').tooltip();});//ca c'est la class des infobulle
 
@@ -1026,6 +1030,9 @@ $(document).ready(function(){
                 //$('.extiw,.new,.external,.toc a,.internal,mw-magiclink-isbn,.mw-redirect').unbind('click');//on détache le click s'il était présent avant				
 			    
 				$(document).ready(function(){
+
+					//On load de javascript file of the video
+		            $.getScript($('.ted_video').attr('js'));
 					
 					$('.wiki_content').html($('.wiki_content').html().replace('REDIRECT','<i class="icon-refresh"></i> '));
 					
@@ -1050,7 +1057,8 @@ $(document).ready(function(){
 
                     	$('#info_msg_wait').html($('#Please_wait').html()).fadeIn();//on affiche le message pour patienter
 			         
-			            var page_url = $(this).attr('href').replace($('.hoster').attr('kiwix'),'');
+			            var page_url = $(this).attr('href').replace($('.hoster').attr('host_wiki'),'').replace($('.hoster').attr('host'),'');
+			            
 
 				  		retrieve_article_url(page_url);
 				
@@ -1101,8 +1109,10 @@ $(document).ready(function(){
 
                 $.unblockUI();//on débloque le navigateur				
 		        
-				$('#info_msg_wait').fadeOut();//On efface la box qui fait patienter
-                                      
+		        //We wipe the double Title
+		        $('#firstHeading').fadeOut();
+		        $('#title').fadeOut();
+				                      
 				$('body').animate({scrollTop : '0px'},1000);//on te scroll au debut de la page
 
 				$('#toTop').click();
@@ -1553,19 +1563,27 @@ $(document).ready(function(){
 			                            if(window.device=='mobile'){ 
 
 			                          	    window.show_page();
-			                            }       
-									
-									   //On affiche la box pour patienter                  
-		                              $('#info_msg_wait').html($('#Please_wait').html()).fadeIn();
+			                            }
+
+			                            if($(this).parent().parent().attr('type')=='gutenberg') { //If it's a result of gutenberg library,we open the book in a new window
+                                           
+                                            window.open($('.hoster').attr('host_wiki')+$(this).attr("href"), "popupWindow", "width=600,height=600,scrollbars=yes");
+                                    
+			                            }else{
+                                            
+                                            //On affiche la box pour patienter                  
+		                                    $('#info_msg_wait').html($('#Please_wait').html()).fadeIn();
 			
-			                          var page_url = $(this).attr('href').replace($('.hoster').attr('kiwix'),'');
-			                          
-				                      //On désactive tout les boutons actifs
-                                      $('.liste_click .active').attr('class','active_ceci');
+			                                var page_url = $(this).attr('href').replace($('.hoster').attr('host_wiki'),'').replace($('.hoster').attr('host'),'');
+
+				                            //On désactive tous les boutons actifs
+                                            $('.liste_click .active').attr('class','active_ceci');
 			
-				                      //Et on active le bouton sur le quel on vient de cliquer	
-                                      $(this).parent().attr('class','active');
-								      retrieve_article_url(page_url);
+				                            //Et on active le bouton sur le quel on vient de cliquer	
+                                            $(this).parent().attr('class','active');
+								      
+								            retrieve_article_url(page_url);
+			                            }     
 									  
                                       return false;		            
                                     });

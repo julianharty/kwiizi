@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="fr" manifest="<?php echo base_url();?>manifest/hi.manifest">
+<html lang="fr" manifestt="<?php echo base_url();?>manifest/hi.manifestt">
 
 <head>
 	<meta charset="utf-8">
@@ -19,6 +19,8 @@
 	<link type="text/css" href="<?php echo base_url();?>assets/css/scrollToTop.css" rel="stylesheet"/>
 	
 	<link type="text/css" href="<?php echo base_url();?>assets/css/boldlight.css" rel="stylesheet"/>	
+	<link type="text/css" href="<?php echo base_url();?>assets/css/video.css" rel="stylesheet"/>	
+	<link type="text/css" href="<?php echo base_url();?>assets/css/ted.css" rel="stylesheet"/>	
 	
     <link href="<?php echo base_url();?>assets/css/begoo.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/css/jquery.ui.chatbox.css" rel="stylesheet">

@@ -117,44 +117,83 @@ $(document).ready(function(){
 											
 										//si oui
 										    if(papi.statu =='success')
-											{
-												//le bouttons "plus" dabord
-												var plus_boutton = '<button class="btn btn-info plus_wiki_b" type="button"><i class="icon-plus icon-white"></i></button>';
-											   
-												$('.liste').html('<ul class="nav nav-list bs-docs-sidenav liste_click" counter="50"><li class="nav-header"><i class="icon-globe icon-white"></i> '+$('.resultat').attr('message')+': <span class="badge badge-success header_result">'+papi.header+'</span></li></ul>'+plus_boutton);
-										
-										        $('.stock_engine').html(papi.result);//ON met le résultal dans un div
+											{  
+                                                var nav_wikipedia     = '<li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-globe"></i> '+$('.result_label').attr('wikipedia')+'</a></li>';
+                                                var nav_gutenberg     = '<li><a href="#tab2" data-toggle="tab"><i class="icon-book"></i> '+$('.result_label').attr('library')+'</a></li>';
+                                                var nav_ted           = '<li><a href="#tab3" data-toggle="tab"><i class="icon-youtube-play"></i> '+$('.result_label').attr('video')+'</a></li>';
+                                                var content_wikipedia = '<div class="tab-pane active" id="tab1"><ul class="nav nav-list bs-docs-sidenav liste_click wikipedia" counter="50"><li class="nav-header"><i class="icon-globe icon-white"></i> '+$('.resultat').attr('message')+': <span class="badge badge-success header_result">'+papi.wikipedia.header+'</span></li></ul><button class="btn btn-info plus_wiki_wikipedia" type="button"><i class="icon-plus icon-white"></i></button></div>';
+                                                var content_gutenberg = '<div class="tab-pane" id="tab2"><ul class="nav nav-list bs-docs-sidenav liste_click gutenberg" type="gutenberg" counter="50"><li class="nav-header"><i class="icon-book icon-white"></i> '+$('.resultat').attr('message')+': <span class="badge badge-success header_result">'+papi.gutenberg.header+'</span></li></ul><button class="btn btn-info plus_wiki_gutenberg" type="button"><i class="icon-plus icon-white"></i></button></div>';
+                                                var content_ted       = '<div class="tab-pane" id="tab3"><ul class="nav nav-list bs-docs-sidenav liste_click ted" counter="50"><li class="nav-header"><i class="icon-globe icon-youtube-play"></i></li></ul></div>';
 
-												$('.liste_click').append($('.results ul').html()).fadeIn('slow');//On extrait du résultat ce qui nous interesse
+                                                var all_list = nav_wikipedia+nav_gutenberg+nav_ted;
+                                                var all_content = content_wikipedia+content_gutenberg+content_ted;
+												$('.liste').html('<div class="tabbable"><ul class="nav nav-tabs">'+all_list+'</ul><div class="tab-content">'+all_content+'</div></div>');
 
-												$('.stock_engine').html('');//On efface le contenu de ce div pour économiser la mémoire de l'user
+										        $('.stock_engine_wikipedia').html(papi.wikipedia.result);//ON met le résultal dans un div
+										        $('.stock_engine_gutenberg').html(papi.gutenberg.result);//ON met le résultal dans un div
 
+												$('.wikipedia').append($('.stock_engine_wikipedia .results ul').html()).fadeIn('slow');//On extrait du résultat ce qui nous interesse
+												$('.gutenberg').append($('.stock_engine_gutenberg .results ul').html()).fadeIn('slow');//On extrait du résultat ce qui nous interesse
 
-                                                  //Debut gestion de pagination
-												$('.stock_engine').html(papi.footer);//ON met les pagination des resultats
+												$('.stock_engine_wikipedia').html('');//On efface le contenu de ce div pour économiser la mémoire de l'user
+												$('.stock_engine_gutenberg').html('');//On efface le contenu de ce div pour économiser la mémoire de l'user
 
-												var page_resultat = $('.footer li a').length;
+												//Specially for TED videos
+												for(i=0;i<papi.ted.length;i++){
+
+										            $('.stock_engine_ted').html(papi.ted[i].result);//ON met le résultal dans un div
+												    $('.ted').append($('.stock_engine_ted .results ul').html()).fadeIn('slow');//On extrait du résultat ce qui nous interesse
+												    $('.stock_engine_ted').html('');//On efface le contenu de ce div pour économiser la mémoire de l'user
+												}
+
+                                                
+                                                  //The wikipedia pagination
+												$('.stock_engine_wikipedia').html(papi.wikipedia.footer);//ON met les pagination des resultats
+
+												var page_resultat_wikipedia = $('.stock_engine_wikipedia .footer li a').length;
 
 												//Stockage des url des pages de resultat
-												window.nbre_page_resultat = new Array();
+												window.nbre_page_resultat_wikipedia = new Array();
 												
-												for(i=0;i<page_resultat;i++){
+												for(i=0;i<page_resultat_wikipedia;i++){
 
-                                                    window.nbre_page_resultat.push($('.footer li a')[i].href);
+                                                    window.nbre_page_resultat_wikipedia.push($('.stock_engine_wikipedia .footer li a')[i].href);
 
-                                                    if(i==page_resultat-1){
+                                                    if(i==page_resultat_wikipedia-1){
                                                     	
-                                                    	$('.stock_engine').html('');//O efface le contenu de ce div pour économiser la mémoire de l'user
+                                                    	$('.stock_engine_wikipedia').html('');//O efface le contenu de ce div pour économiser la mémoire de l'user
 
-                                                    	window.nbre_page_resultat_actuel = 2;
+                                                    	window.nbre_page_resultat_actuel_wikipedia = 2;
                                                     }
-												}
+												} 
+
+
+												  //The gutenberg pagination
+												$('.stock_engine_gutenberg').html(papi.gutenberg.footer);//ON met les pagination des resultats
+
+												var page_resultat_gutenberg = $('.stock_engine_gutenberg .footer li a').length;
+
+												//Stockage des url des pages de resultat
+												window.nbre_page_resultat_gutenberg = new Array();
+												
+												for(i=0;i<page_resultat_gutenberg;i++){
+
+                                                    window.nbre_page_resultat_gutenberg.push($('.stock_engine_gutenberg .footer li a')[i].href);
+
+                                                    if(i==page_resultat_gutenberg-1){
+                                                    	
+                                                    	$('.stock_engine_gutenberg').html('');//O efface le contenu de ce div pour économiser la mémoire de l'user
+
+                                                    	window.nbre_page_resultat_actuel_gutenberg = 2;
+                                                    }
+												} 
+		
 
 												$(document).ready(function(){
 
                                                     window.click_by_url();//Gestion des clicks des articles
                                                     //$(window).scrollTop($(document).height());	
-												});						                         						                         
+												});					                         						                         
 											}
                                  
                                  $('#info_msg_wait').fadeOut();//On efface la box qui fait patienter 		 

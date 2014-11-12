@@ -492,7 +492,7 @@ public function ping_it()
 	    if($this->form_validation->run()) 
 		{ 	            
 		   
-            $response = file_get_contents(KIWIX.str_replace(" ","%20",str_replace("'","%27",$this->input->post("page_url"))));
+            $response = file_get_contents(HOST_WIKI.str_replace(" ","%20",str_replace("'","%27",$this->input->post("page_url"))));
 
             $response = mb_convert_encoding($response, 'HTML-ENTITIES', "UTF-8");
 
@@ -513,7 +513,7 @@ public function ping_it()
                 }
 
                 //On obtient le contenu de l'article
-              $tags           = $document->getElementById('bodyContent');
+              $tags           = $document->getElementById('content');
          
               $full_text      = $this->DOMinnerHTML($tags);
             
@@ -551,7 +551,7 @@ public function ping_it()
 		}
 
 		$reponses['page_title']              = $title_text;
-		$reponses['page_text']               = $full_text;
+		$reponses['page_text']               = str_replace('../../',HOST_WIKI.'/ted_business_05_2014/',$full_text);
   
 	    // on a notre objet $reponse (un array en fait)
         // reste juste à l'encoder en JSON et l'envoyer
@@ -590,33 +590,11 @@ public function ping_it()
   	
 	    if($this->form_validation->run()) 
 		{ 	          
-		   $string = str_replace(' ','+',$this->input->post('string'));//On remplace les espaces par des +
+		    $string = str_replace(' ','+',$this->input->post('string'));//On remplace les espaces par des +
 
-		   $string = str_replace("'","%27",$string);//Des apostrophes par des %27
+		    $string = str_replace("'","%27",$string);//Des apostrophes par des %27
 
-            $response = file_get_contents('http://'.HOSTER.':'.KIWIX_PORT.'/search?content='.ZIM.'&pattern='.$string);
-       
-            if($response)
-            { 
-
-               $header = $this->get_class_by_name($response,'header');
-
-               $footer = $this->get_class_by_name($response,'footer');
-
-               $result = $this->get_class_by_name($response,'results');
-
-               $statu  = 'success';
-
-            }else{
-
-               $header = false;
-
-               $footer = false;
-
-               $result = $this->lang->line('form_error');
-
-               $statu  = 'fail';
-            }		  
+		    $this->go_and_search($string);	  
 		}else{
 
 			$header = false;
@@ -626,17 +604,77 @@ public function ping_it()
             $result = validation_errors();
 
             $statu  = 'fail';
-		}
 
-		$reponses['header']              = $header;
-		$reponses['footer']              = $footer;
-		$reponses['result']              = $result;
-		$reponses['statu']               = $statu;
+            $reponses['header']              = $header;
+		    $reponses['footer']              = $footer;
+		    $reponses['result']              = $result;
+		    $reponses['statu']               = $statu;
   
-	    // on a notre objet $reponse (un array en fait)
-        // reste juste à l'encoder en JSON et l'envoyer
-        header('Content-Type: application/json');
-        echo json_encode($reponses);  
+	        // on a notre objet $reponse (un array en fait)
+            // reste juste à l'encoder en JSON et l'envoyer
+            header('Content-Type: application/json');
+            echo json_encode($reponses); 
+		} 
+    }
+
+
+     
+
+    function go_and_search($string){
+
+    	$all_zim_file = explode(",",ZIM_LIST);
+
+    	$increment_ted = false;//This variable is specially to initialise all ted videos
+
+    	for ($i=0; $i < count($all_zim_file) ; $i++) { 
+    		
+    		$response = file_get_contents('http://'.HOSTER.':'.KIWIX_PORT.'/search?content='.$all_zim_file[$i].'&pattern='.$string.'+');
+
+    		$header = $this->get_class_by_name($response,'header');
+
+            $footer = $this->get_class_by_name($response,'footer');
+
+            $result = $this->get_class_by_name($response,'results');
+
+            switch ($i) {
+            	case 0:
+            		$wikipedia = array('header' =>$header,'footer'=>$footer,'result'=>$result);
+            		break;
+
+            	case 1:
+            		$gutenberg = array('header' =>$header,'footer'=>$footer,'result'=>$result);
+            		break;
+            	
+            	default:
+            	    if($increment_ted==false){
+
+            		    $this_ted = array('header' =>$header,'footer'=>$footer,'result'=>$result);
+
+            		    $ted = array($this_ted);
+
+            		    $increment_ted = true;        
+            	    }else{
+
+            		    $this_ted = array('header' =>$header,'footer'=>$footer,'result'=>$result);
+
+            	    	array_push($ted, $this_ted);
+            	    }	
+                break;
+            }
+
+            if($i==count($all_zim_file)-1){
+
+                $reponses['wikipedia']              = $wikipedia;
+		        $reponses['gutenberg']              = $gutenberg;
+		        $reponses['ted']                    = $ted;
+		        $reponses['statu']                  = 'success';
+  
+	            // on a notre objet $reponse (un array en fait)
+               // reste juste à l'encoder en JSON et l'envoyer
+               header('Content-Type: application/json');
+               echo json_encode($reponses);  
+            }
+    	}	
     }
 
 

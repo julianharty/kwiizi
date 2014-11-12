@@ -313,7 +313,9 @@
 
 
 	<!-- pour le moteur de recherche -->
-	<div class="stock_engine" style="display:none;"></div>
+	<div class="stock_engine_wikipedia" style="display:none;"></div>
+	<div class="stock_engine_gutenberg" style="display:none;"></div>
+	<div class="stock_engine_ted" style="display:none;"></div>
 
 
 	<div class="all_number_user" href="<?php echo site_url().'/user/user/all_number_user'; ?>"></div>
@@ -331,6 +333,9 @@
 	<div id="wiki_cat_download" url="<?php echo base_url().'assets/js/wiki_category_download.js'; ?>"></div>
 	<span action="<?php echo site_url().'/msg/notification/ListePub/'; ?>" class="my_msg_pub" ></span>
 	<span action="<?php echo site_url().'/msg/notification/ListePub_out/'; ?>" class=" my_msg_pub_out" ></span>
+
+	<div class="result_label" wikipedia="<?php echo $this->lang->line('form_wikipedia'); ?>" library="<?php echo $this->lang->line('form_library'); ?>" video="<?php echo $this->lang->line('form_videotek'); ?>"></div>
+
 	
 	<span class="article_cat" article="<?php echo $this->lang->line('form_cat_art'); ?>"> </span>  
 
@@ -339,11 +344,13 @@
 	<span class="notif_search" short="<?php echo $this->lang->line('form_short'); ?>"></span>
 
 	<span class="not_allow_family" message="<?php echo $this->lang->line('form_not_allow_family'); ?>"></span>
+
+	<div class="ted_video" js="<?php echo base_url();?>assets/js/video.js"></div>
 	
 	   
 		<div id="get_API" get_random_article="<?php echo site_url().'/wikipedia/wiki/get_random_article'; ?>" ping="<?php echo site_url().'/wikipedia/wiki/ping' ; ?>" local_db="<?php echo WEB_STORAGE_NAME ; ?>" api_category_list="<?php echo site_url().'/wikipedia/wiki/list_article' ; ?>" api_category="<?php echo site_url().'/wikipedia/wiki/get_category' ; ?>" api="<?php echo site_url().'/wikipedia/wiki/get_article' ; ?>" api_search="<?php echo site_url().'/wikipedia/wiki/search' ; ?>" api_search_plus="<?php echo site_url().'/wikipedia/wiki/search_plus' ; ?>"></div>
 
-		<div class="hoster" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>"></div>
+		<div class="hoster" url="<?php echo HOSTER ; ?>" port_kiwix="<?php echo KIWIX_PORT ; ?>" host="<?php echo HOST ; ?>" host_wiki="<?php echo HOST_WIKI ; ?>" zim="<?php echo ZIM ; ?>" kiwix="<?php echo KIWIX ; ?>" zim_list="<?php echo ZIM_LIST ; ?>" url_for_seek="http://<?php echo HOSTER ; ?>:<?php echo KIWIX_PORT ; ?>/search?content="></div>
 		
 	    <div id="site_url"  url="<?php echo site_url().'/wikipedia/wiki'; ?>"></div>
 		
